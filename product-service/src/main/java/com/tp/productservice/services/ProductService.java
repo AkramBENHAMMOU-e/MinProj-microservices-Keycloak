@@ -9,6 +9,7 @@ import java.util.List;
 @Service
 public class ProductService {
     private ProductRepository productRepository;
+
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
@@ -27,6 +28,7 @@ public class ProductService {
             product.setName(productDetails.getName());
             product.setDescription(productDetails.getDescription());
             product.setPrice(productDetails.getPrice());
+            product.setStockQuantity(productDetails.getStockQuantity());
             return productRepository.save(product);
         }
         return null;
@@ -36,6 +38,7 @@ public class ProductService {
     public void deleteProductById(Long id) {
         productRepository.deleteById(id);
     }
+
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }

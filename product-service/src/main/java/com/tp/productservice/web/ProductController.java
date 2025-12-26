@@ -9,35 +9,36 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
-    private ProductService productService;
+
+    private final ProductService productService;
+
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
     @GetMapping
-    public List<Product> getAllProducts(){
+    public List<Product> getAllProducts() {
         return productService.getAllProducts();
     }
 
-    @GetMapping("/id")
-    public Product getProductById(@RequestParam Long id){
+    @GetMapping("/{id}")
+    public Product getProductById(@PathVariable Long id) {
         return productService.getProductById(id);
     }
 
     @PostMapping
-    public Product createProduct(@RequestBody Product product){
+    public Product createProduct(@RequestBody Product product) {
         return productService.createProduct(product);
     }
 
-    @PutMapping("/id")
-    public Product updateProduct(@RequestParam Long id,
+    @PutMapping("/{id}")
+    public Product updateProduct(@PathVariable Long id,
                                  @RequestBody Product productDetails) {
         return productService.updateProduct(id, productDetails);
     }
 
-    @DeleteMapping("/id")
-    public void deleteProductById(@RequestParam Long id) {
+    @DeleteMapping("/{id}")
+    public void deleteProductById(@PathVariable Long id) {
         productService.deleteProductById(id);
     }
-
 }
