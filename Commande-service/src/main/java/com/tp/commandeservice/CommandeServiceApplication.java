@@ -12,7 +12,12 @@ import org.springframework.context.annotation.Bean;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+
 @SpringBootApplication
+@EnableFeignClients
+@EnableDiscoveryClient
 public class CommandeServiceApplication {
 
 	public static void main(String[] args) {

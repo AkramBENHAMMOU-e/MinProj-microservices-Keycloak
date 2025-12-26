@@ -9,7 +9,10 @@ import org.springframework.context.annotation.Bean;
 
 import java.util.List;
 
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+
 @SpringBootApplication
+@EnableDiscoveryClient
 public class ProductServiceApplication {
 
     public ProductServiceApplication(ProductService productService) {
