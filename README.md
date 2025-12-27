@@ -107,12 +107,3 @@ Vue de la base de données H2 pour les commandes.
    - Keycloak Console : [http://localhost:8080](http://localhost:8080)
    - Eureka Dashboard : [http://localhost:8761](http://localhost:8761)
 
-## Démonstration Vidéo
-
-Une vidéo de démonstration complète du parcours utilisateur (Login -> Panier -> Commande -> Admin) est disponible :
-
-[Voir la vidéo de démonstration](./demo/tp4-security-ecom-microservices-keycloak%20‐%20Réalisée%20avec%20Clipchamp.mp4)
-
----
-**Auteur** : Akram BENHAMMOU
-**Projet** : TP Sécurité & Microservices - M2 S3
