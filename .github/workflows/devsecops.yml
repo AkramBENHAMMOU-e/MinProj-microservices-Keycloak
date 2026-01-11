@@ -68,7 +68,6 @@ jobs:
           sarif_file: trivy-${{ matrix.service }}.sarif
 
   sonar:
-    if: ${{ secrets.SONAR_TOKEN != '' }}
     name: SonarQube (optional)
     runs-on: ubuntu-latest
     strategy:
@@ -78,24 +77,31 @@ jobs:
           - gateway-service
           - order-service
           - product-service
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
     steps:
+      - name: Skip Sonar (no token)
+        if: ${{ env.SONAR_TOKEN == '' }}
+        run: echo "SONAR_TOKEN is not set; skipping Sonar job."
       - uses: actions/checkout@v4
+        if: ${{ env.SONAR_TOKEN != '' }}
       - name: Set up JDK
         uses: actions/setup-java@v4
+        if: ${{ env.SONAR_TOKEN != '' }}
         with:
           distribution: temurin
           java-version: "21"
           cache: maven
       - name: Cache Sonar packages
         uses: actions/cache@v4
+        if: ${{ env.SONAR_TOKEN != '' }}
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
       - name: Sonar scan
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-          SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
+        if: ${{ env.SONAR_TOKEN != '' }}
         run: |
           mvn -B -f ${{ matrix.service }}/pom.xml -DskipTests sonar:sonar \
             -Dsonar.host.url=${SONAR_HOST_URL:-https://sonarcloud.io} \
